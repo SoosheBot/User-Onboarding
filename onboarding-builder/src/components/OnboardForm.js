@@ -5,10 +5,10 @@ import axios from "axios";
 
 const OnboardForm = ({ values, errors, touched, status }) => {
 
-    const [users, setUser] = useState([]);
+    const [users, setUsers] = useState([]);
     useEffect(() => {
         if (status) {
-            setUser([...users, status]);
+            setUsers([...users, status]);
         }
 },[status]);
 
@@ -38,11 +38,11 @@ return (
             )} 
             <button type='submit'>Submit Info</button>
         </Form>
-        {users.map(user => (
+        {users.map(login => (
             <>
-                <p><strong>Name:</strong> {user.name}</p>
-                <p><strong>Email:</strong> {user.email}</p>
-                <p><strong>Password:</strong> {user.password.replace(user.password,'For your safety, your password is hidden!')}</p>
+                <p><strong>Name:</strong> {login.name}</p>
+                <p><strong>Email:</strong> {login.email}</p>
+                <p><strong>Password:</strong> {login.password.replace(login.password,'For your safety, your password is hidden!')}</p>
             </>
         ))}
     </div>
@@ -65,14 +65,19 @@ const FormikOnboardForm = withFormik({
         tos: Yup.bool().oneOf([true], "You must agree to the Terms of Service")
     }),
 
-    handleSubmit(values, { setStatus }) {
+    handleSubmit(values, { setStatus, resetForm }) {
         axios
         .post("https://reqres.in/api/users", values)
         .then(res => {
+            console.log('Is this working', values);
             setStatus(res.data);
+            resetForm('');            
         })
         .catch(err => console.log("An error", err.res));
     }
+    
 })(OnboardForm);
+
+
 
 export default FormikOnboardForm;

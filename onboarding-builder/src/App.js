@@ -8,7 +8,7 @@ function App() {
       <header className="App-header">
         <h1>Onboarding Form</h1>
       </header>
-      <div className="App">
+      <div className="App-body">
         <OnboardForm />
       </div>
     </div>
