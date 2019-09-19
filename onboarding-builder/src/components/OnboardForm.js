@@ -6,10 +6,10 @@ import axios from "axios";
 const OnboardForm = ({ values, errors, touched, status }) => {
 
     const [users, setUsers] = useState([]);
-    useEffect(() => {
-        if (status) {
-            setUsers([...users, status]);
-        }
+        useEffect(() => {
+            if (status) {
+                status && setUsers(users => [...users, status]);
+            }
 },[status]);
 
 
